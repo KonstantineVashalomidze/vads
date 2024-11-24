@@ -17,6 +17,7 @@ public abstract class Data {
         return format;
     }
 
+
     @Override
     public String toString() {
         return "Data{" +

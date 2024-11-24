@@ -4,7 +4,7 @@ import org.example.core.input.handler.DataHandler;
 import org.example.core.input.model.Data;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchMethodException {
         DataHandler dataHandler = new DataHandler();
         String location = "C://";
         String format = ".PNG";

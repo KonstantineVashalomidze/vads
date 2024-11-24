@@ -7,6 +7,6 @@ public class DefaultLoggerOutputStream
 {
     @Override
     public void print(Log log, long elapsedTimeMillis) {
-        System.out.println("[" + log.getSeverity() + "] " + "{"+ log.getSource() +"} " + log.getMessage() + " (" + elapsedTimeMillis + ")");
+        System.out.println("[" + log.getSeverity() + "] " + "{"+ log.getSource() +"} " + log.getMessage() + " (" + elapsedTimeMillis + "ms)");
     }
 }

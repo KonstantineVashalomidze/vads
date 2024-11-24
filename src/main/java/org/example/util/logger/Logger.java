@@ -32,7 +32,9 @@ public class Logger
     /* Timer should be started and ended before starting calling this method, otherwise you get 0 ms. in log */
     public void rise(Log log)
     {
-        loggerOutputStreamHandler.handleLoggerOutput(log, endTime - startTime);
+        loggerOutputStreamHandler.handleLoggerOutput(log, (endTime - startTime));
+        startTime = 0;
+        endTime = 0;
     }
 
 
