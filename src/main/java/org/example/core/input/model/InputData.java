@@ -1,6 +1,6 @@
 package org.example.core.input.model;
 
-public abstract class InputData {
+public class InputData {
     private String location;
     private InputFormat inputFormat;
 

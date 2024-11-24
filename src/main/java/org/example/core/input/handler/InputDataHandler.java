@@ -15,7 +15,7 @@ public class InputDataHandler
     private InputDataProcessor inputDataProcessor;
     private Logger logger;
 
-    private OutputDataHandler outputDataHandler;
+    private byte[] processedData;
 
     public InputDataHandler()
     {
@@ -46,13 +46,7 @@ public class InputDataHandler
         byte[] processed = inputDataProcessor.process(inputData);
         logger.endTimer();
         logger.push(new Log(Severity.INFO, "processed inputData", InputDataHandler.class.getDeclaredMethod("processData", InputData.class).toString()));
-
-        // create output handler
-        outputDataHandler = new OutputDataHandler(processed);
-
-
-
-
+        processedData = processed;
     }
 
 
@@ -62,5 +56,11 @@ public class InputDataHandler
         processData(inputData);
     }
 
-
+    public byte[] getProcessedData() throws NoSuchMethodException {
+        if (processedData == null){
+            logger.push(new Log(Severity.ERROR, "processData is null, call handle data before calling this method.", (InputDataHandler.class.getDeclaredMethod("getProcessedData").toString())));
+            throw new IllegalStateException("Can't invoke getProcessData because data isn't handled yet");
+        }
+        return processedData;
+    }
 }
