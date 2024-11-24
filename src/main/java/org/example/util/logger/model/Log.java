@@ -1,5 +1,9 @@
 package org.example.util.logger.model;
 
+/**
+ * @author Konstantine Vashalomidze
+ * Log model class.
+ */
 public class Log {
 
     private Severity severity;

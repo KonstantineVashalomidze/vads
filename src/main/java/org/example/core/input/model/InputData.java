@@ -1,20 +1,20 @@
 package org.example.core.input.model;
 
-public abstract class Data {
+public abstract class InputData {
     private String location;
-    private String format;
+    private InputFormat inputFormat;
 
-    public Data(String location, String format) {
+    public InputData(String location, InputFormat inputFormat) {
         this.location = location;
-        this.format = format;
+        this.inputFormat = inputFormat;
     }
 
     public String getLocation() {
         return location;
     }
 
-    public String getFormat() {
-        return format;
+    public InputFormat getFormat() {
+        return inputFormat;
     }
 
 
@@ -22,7 +22,7 @@ public abstract class Data {
     public String toString() {
         return "Data{" +
                 "location='" + location + '\'' +
-                ", format='" + format + '\'' +
+                ", inputFormat='" + inputFormat + '\'' +
                 '}';
     }
 }

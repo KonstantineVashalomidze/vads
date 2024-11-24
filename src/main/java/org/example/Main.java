@@ -1,21 +1,22 @@
 package org.example;
 
-import org.example.core.input.handler.DataHandler;
-import org.example.core.input.model.Data;
+import org.example.core.input.handler.InputDataHandler;
+import org.example.core.input.model.InputData;
+import org.example.core.input.model.InputFormat;
 
 public class Main {
     public static void main(String[] args) throws NoSuchMethodException {
-        DataHandler dataHandler = new DataHandler();
+        InputDataHandler inputDataHandler = new InputDataHandler();
         String location = "C://";
-        String format = ".PNG";
-        Data data = new Data(location, format) {
+        InputFormat format = InputFormat.STRING;
+        InputData data = new InputData(location, format) {
             @Override
             public String getLocation() {
                 return super.getLocation();
             }
 
             @Override
-            public String getFormat() {
+            public InputFormat getFormat() {
                 return super.getFormat();
             }
 
@@ -25,7 +26,7 @@ public class Main {
             }
         };
 
-        dataHandler.handleData(data);
+        inputDataHandler.handleData(data);
 
     }
 }
