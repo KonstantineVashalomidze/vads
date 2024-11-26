@@ -3,6 +3,7 @@ package org.example.core.output.process;
 import org.example.core.output.model.OutputData;
 import org.example.core.output.model.Resolution;
 import org.example.core.output.util.ColorMatcher;
+import org.jcodec.api.awt.AWTSequenceEncoder;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -54,6 +55,7 @@ public class DefaultOutputHdVideoProcessor
         int capacity = resolution.getWidth() * resolution.getHeight();
         int needFrame = (bitStringLength + capacity - 1) / capacity;
 
+        int dx = 0, dy = 0;
         // create buffered images
         BufferedImage[] bufferedImages = new BufferedImage[needFrame];
         for (int i = 0; i < bufferedImages.length; i++)
@@ -65,10 +67,10 @@ public class DefaultOutputHdVideoProcessor
                 int x= 0;
                 while (x < Resolution.HD_720P.getWidth())
                 {
-                    if (y * Resolution.HD_720P.getWidth() + x >= bitStringLength)
+                    if (dy * Resolution.HD_720P.getWidth() + dx >= bitStringLength)
                         break;
                     // write current binary into image
-                    char currentChar = bitString.charAt(y * Resolution.HD_720P.getWidth() + x);
+                    char currentChar = bitString.charAt(dy * Resolution.HD_720P.getWidth() + dx);
                     if (currentChar == '1')
                     {
                         bufferedImages[i].setRGB(x, y, Color.WHITE.getRGB());
@@ -77,28 +79,31 @@ public class DefaultOutputHdVideoProcessor
                     } else {
                         bufferedImages[i].setRGB(x, y, Color.RED.getRGB());
                     }
-                    x++;
+                    x++; dx++;
                 }
-                y++;
+                y++; dy++;
 
             }
         }
 
-
-        for (var bfi : bufferedImages)
-        {
-            try {
-                BufferedImage bi = bufferedImages[0];  // retrieve image
-                File outputfile = new File("src/main/resources/saved" + bfi.hashCode() + ".png");
-                ImageIO.write(bi, "png", outputfile);
-            } catch (IOException e) {
-                // handle exception
-            }
-        }
-
+        createVideo(bufferedImages, "output.avi", 30);
 
 
     }
 
+
+    public static void createVideo(BufferedImage[] frames, String outputPath, int frameRate) {
+        try {
+            AWTSequenceEncoder encoder = AWTSequenceEncoder.createSequenceEncoder(new File(outputPath), frameRate);
+
+            for (BufferedImage frame : frames) {
+                encoder.encodeImage(frame);
+            }
+
+            encoder.finish();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 }
